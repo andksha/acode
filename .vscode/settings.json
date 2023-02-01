@@ -3,6 +3,11 @@
         "bitset": "cpp",
         "typeinfo": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "*.tcc": "cpp",
+        "new": "cpp",
+        "limits": "cpp"
     }
 }
