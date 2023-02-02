@@ -5,8 +5,9 @@
 #include <cstring>
 #include <ios>
 #include <limits>
+#include <algorithm>
 
-using std::cout, std::endl, std::cin, std::string;
+using std::cout, std::endl, std::cin, std::string, std::array;
 
 void passVal(int val)
 {
@@ -103,7 +104,7 @@ void printChoiceMethod()
 void printBubbleSort()
 {
     const int length(9);
-    int array[length] = { 7, 5, 6, 4, 9, 8, 2, 1, 3 };
+    int array1[length] = { 7, 5, 6, 4, 9, 8, 2, 1, 3 };
  
     for (int iteration = 0; iteration < length-1; ++iteration)
     {
@@ -113,9 +114,9 @@ void printBubbleSort()
  
         for (int currentIndex = 0; currentIndex < endOfArrayIndex - 1; ++currentIndex)
         {
-            if (array[currentIndex] > array[currentIndex + 1])
+            if (array1[currentIndex] > array1[currentIndex + 1])
             {
-                std::swap(array[currentIndex], array[currentIndex + 1]);
+                std::swap(array1[currentIndex], array1[currentIndex + 1]);
                 swapped = true;
             }
         }
@@ -129,7 +130,7 @@ void printBubbleSort()
  
     for (int index = 0; index < length; ++index)
     {
-        std::cout << array[index] << ' ';
+        std::cout << array1[index] << ' ';
     }
 }
 
@@ -359,10 +360,10 @@ void printLesson90()
     int length;
     cin >> length;
 
-    int *array = new int[length];
-    cout << "Array size: " << sizeof(*array) << endl;
-    delete[] array;
-    array = nullptr;
+    int *array1 = new int[length];
+    cout << "Array size: " << sizeof(*array1) << endl;
+    delete[] array1;
+    array1 = nullptr;
 }
 
 void sortNames(string *arr, int length)
@@ -509,6 +510,11 @@ struct Man
     int earsNumber = 2;
 };
 
+void printStruct(Man &m)
+{
+    cout << m.earsNumber << endl;
+}
+
 void printLesson94()
 {
     Man m{2};
@@ -517,6 +523,8 @@ void printLesson94()
     cout << m.earsNumber << endl;
     cout << (*mPtr).earsNumber << endl;
     cout << mPtr->earsNumber << endl;
+
+    printStruct(m);
 }
 
 void printLesson95()
@@ -532,6 +540,86 @@ void printLesson95()
         {
             cout << i << " was found." << endl;
         }
+    }
+}
+
+// void pointers can point to any types, but pointer arithmetic does not work with them since 
+// pointer has to know exact data length in order to perform correct increment/decrement;
+// they also have to be casted to corresponding type before usage
+void printLesson96()
+{
+    int a = 10;
+    void *pointer = &a;
+
+    cout << *(static_cast<int*>(pointer)) << endl;
+}
+
+void changeAB(int *&a, int **&b)
+{
+    *a = 10;
+    **b = 20;
+}
+
+int getSingleIndex(int row, int col, int numberOfColumnsInArray)
+{
+    return (row * numberOfColumnsInArray) + col;
+}
+
+void printLesson97()
+{
+    int val = 1;
+    int *a = &val;
+    int **b = &a;
+
+    changeAB(a, b);
+
+    cout << val << endl;
+
+    // int arr1[]{ 1, 2 }; // regular fixed-sized array
+
+    int *arr2 = new int[20]; // non-fixed-sized array
+    delete[] arr2;
+    arr2 = nullptr;
+
+    int **arr3 = new int*[20]; // dynamic array of pointers
+    delete[] arr3;
+    arr3 = nullptr;
+
+    int arr4[25]{};
+
+    int middleIndex = getSingleIndex(4, 3, 5);
+
+    for (int i = 0; i < 25; i++)
+    {
+        if (i == middleIndex)
+        {
+            cout << 1;
+        }
+        else
+        {
+            cout << arr4[i];
+        }
+
+        if ((i + 1) % 5 != 0)
+        {
+            cout << " ";
+        }
+        else
+        {
+            cout << endl;
+        }
+    }
+}
+
+void printLesson98()
+{
+    array<int, 4>arr{ 100, 2, 3, 45};
+
+    std::sort(arr.begin(), arr.end());
+
+    for (size_t i = 0; i < arr.size(); i++)
+    {
+        cout << arr[i] << '\n';
     }
 }
 
@@ -552,5 +640,8 @@ void printArrays()
     // printLesson92(); // references
     // printLesson93(); // const references
     // printLesson94(); // accessing strut member using pointer
-    printLesson95(); // foreach
+    // printLesson95(); // foreach
+    // printLesson96(); // void pointers
+    // printLesson97();
+    printLesson98();
 }
