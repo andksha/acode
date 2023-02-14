@@ -9,8 +9,8 @@
 // #include "rozdil2/towerBall.h"
 // #include "rozdil3.h"
 // #include "rozdil4.h"
-#include "rozdil5.h"
-#include "rozdil6/rozdil6.h"
+// #include "rozdil_3_4_5/rozdil5.h"
+// #include "rozdil6/rozdil6.h"
 
 // extern int g_myglobe1;
 
@@ -50,7 +50,7 @@ int main()
     // lesson64PracticeTask1();
     // lesson64PracticeTask2();
     // printAuto();
-    // printRozdil4FinalTest();
+    // printRozdil4FinalTest(); 
 
     /* rozdil 5 */
     // printLesson68Task2();
@@ -62,7 +62,10 @@ int main()
     // printLesson76();
 
     /* rozdil 6 */
-    printArrays();
+    // printArrays();
+
+    /* rozdil 7 */
+    
 
     return 0;
 }

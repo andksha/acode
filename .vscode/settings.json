@@ -8,6 +8,7 @@
         "string": "cpp",
         "*.tcc": "cpp",
         "new": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "initializer_list": "cpp"
     }
 }

@@ -6,8 +6,10 @@
 #include <ios>
 #include <limits>
 #include <algorithm>
+#include <vector>
+#include <string_view>
 
-using std::cout, std::endl, std::cin, std::string, std::array;
+using std::cout, std::endl, std::cin, std::string, std::array, std::vector;
 
 void passVal(int val)
 {
@@ -592,22 +594,14 @@ void printLesson97()
     for (int i = 0; i < 25; i++)
     {
         if (i == middleIndex)
-        {
             cout << 1;
-        }
         else
-        {
             cout << arr4[i];
-        }
 
         if ((i + 1) % 5 != 0)
-        {
             cout << " ";
-        }
         else
-        {
             cout << endl;
-        }
     }
 }
 
@@ -621,6 +615,433 @@ void printLesson98()
     {
         cout << arr[i] << '\n';
     }
+}
+
+void printLesson99()
+{
+    vector<int> v{ 2, 3, 4 };
+    cout << v.at(2) << endl;
+
+    v.resize(5);
+    cout << v.size() << endl;
+    v.resize(1);
+    cout << v.size() << endl;
+}
+
+bool containsNut(std::string_view str)
+{
+    return str.find("nut") != std::string_view::npos;
+}
+
+void printLesson101()
+{
+    array<int, 6> arr{ 1, 2, 3, 4, 5, 6};
+    int search{};
+    int replace{};
+
+    cin >> search >> replace;
+
+    auto found{ std::find(arr.begin(), arr.end(), search) };
+
+    cout << typeid(found).name() << endl;
+    cout << *found << endl;
+    cout << replace << endl;
+
+    std::array<std::string_view, 4> arr2{ "apple", "banana", "wall", "lemonuts" };
+
+    auto found2 = std::find_if(arr2.begin(), arr2.end(), containsNut);
+
+    if (found2 == arr2.end())
+        std::cout << "No nuts\n";
+    else
+        std::cout << "Found " << *found2 << '\n';
+
+    auto totalNuts = std::count_if(arr2.begin(), arr2.end(), containsNut);
+    cout << "Total nuts: " << totalNuts << endl;
+}
+
+enum Item
+{
+    HP,
+    TORCH,
+    ARROW,
+    MAX_ITEMS
+};
+
+int countTotalItems(int *arr)
+{
+    int totalItems = 0;
+
+    for (int i = 0; i < Item::MAX_ITEMS; ++i)
+    {
+        totalItems += arr[i];
+    }
+    
+    return totalItems;
+}
+
+void printTest1()
+{
+    int bag[Item::MAX_ITEMS]{ 3, 6, 12};
+    int totalItems = countTotalItems(bag);
+
+    cout << totalItems << endl;
+}
+
+struct Pupil
+{
+    string name{""};
+    int mark{0};
+};
+
+Pupil enterPupil()
+{
+    Pupil p{};
+
+    while (true)
+    {
+        cout << "Enter name: " << endl;
+        cin >> p.name;
+        cout << "Enter mark: " << endl;
+        cin >> p.mark;
+
+        if (cin.fail() || p.mark < 0 || p.mark > 100)
+        {
+            cout << "Wrong mark. Mark has to be from 0 to 100" << endl;
+            cin.clear();
+            cin.ignore(32767, '\n');
+        }
+        else
+        {
+            return p;
+        }
+    }
+}
+
+bool sortPupils(Pupil a, Pupil b)
+{
+    return a.mark > b.mark;
+}
+
+void printTest2()
+{
+    int numberOfPupils;
+    cout << "Enter number of pupils you want to enter: " << endl;
+    cin >> numberOfPupils;
+
+    Pupil *p = new (std::nothrow) Pupil[numberOfPupils];
+
+    for (int i = 0; i < numberOfPupils; i++)
+    {
+        p[i] = enterPupil();
+    }
+
+    std::sort(p, p + numberOfPupils, sortPupils);
+
+    for (int i = 0; i < numberOfPupils; i++)
+    {
+        cout << "Name: " << p[i].name
+            << ", mark: " << p[i].mark << endl;
+    }
+    
+    delete[] p;
+    p = nullptr;
+}
+
+void swap(int &a, int &b)
+{
+    int temp = b;
+    b = a;
+    a = temp;
+}
+
+void printTest3()
+{
+    int a{5};
+    int b{10};
+
+    swap(a, b);
+
+    cout << "a: " << a << ", b: " <<  b << endl;
+}
+
+void printCStyleString(const char *c)
+{
+    while (*c != '\0')
+    {
+        cout << *c << endl;
+        ++c;
+    }
+}
+
+void printTest4()
+{
+    printCStyleString("Hello, world!");
+}
+
+enum class CardSuit
+{
+    CLUBS,
+    DIAMONDS,
+    HEARTS,
+    SPADES,
+    NUM_OF_SUITS
+};
+
+enum class CardRank
+{
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    TEN,
+    JACK,
+    QUEEN,
+    KING,
+    ACE,
+    NUM_OF_RANKS
+};
+
+struct Card
+{
+    CardSuit suit;
+    CardRank rank;
+};
+
+void printCard(const Card &card)
+{
+    switch (card.rank)
+    {
+        case CardRank::TWO: cout << "2"; break;
+        case CardRank::THREE: cout << "3"; break;
+        case CardRank::FOUR: cout << "4"; break;
+        case CardRank::FIVE: cout << "5"; break;
+        case CardRank::SIX: cout << "6"; break;
+        case CardRank::SEVEN: cout << "7"; break;
+        case CardRank::EIGHT: cout << "8"; break;
+        case CardRank::NINE: cout << "9"; break;
+        case CardRank::TEN: cout << "10"; break;
+        case CardRank::JACK: cout << "J"; break;
+        case CardRank::QUEEN: cout << "Q"; break;
+        case CardRank::KING: cout << "K"; break;
+        case CardRank::ACE: cout << "A"; break;
+        default: break;
+    }
+
+    switch (card.suit)
+    {
+        case CardSuit::CLUBS: cout << "C"; break;
+        case CardSuit::DIAMONDS: cout << "D"; break;
+        case CardSuit::HEARTS: cout << "H"; break;
+        case CardSuit::SPADES: cout << "S"; break;
+        default: break;
+    }
+
+    cout << " ";
+}
+
+std::array<Card, 52> initDeck()
+{
+    std::array<Card, 52> deck{};
+    size_t kk = 0;
+
+    for (int ii = 0; ii < int(CardSuit::NUM_OF_SUITS); ++ii)
+    {
+        for (int jj = 0; jj < int(CardRank::NUM_OF_RANKS); ++jj)
+        {
+            deck[kk] = Card {static_cast<CardSuit>(ii), static_cast<CardRank>(jj)};
+            ++kk;
+        }   
+    }
+    
+    return deck;
+}
+
+void printDeck(const std::array<Card, 52> &deck)
+{
+    for (Card card: deck)
+    {
+        printCard(card);
+    }
+    cout << endl;
+}
+
+void swapCards(Card &c1, Card &c2)
+{
+    Card tmpCard = c1;
+    c1 = c2;
+    c2 = tmpCard;
+}
+
+int getRandomI(int min, int max)
+{
+    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0); 
+
+    return static_cast<size_t>(rand() * fraction * (max - min + 1) + min);
+}
+
+void shuffleDeck(std::array<Card, 52> &deck)
+{
+    for (size_t i = 0; i < deck.size(); i++)
+    {
+        swapCards(deck[i], deck[(unsigned int) getRandomI(0, 51)]);
+    }
+}
+
+int getCardValue(const Card &card)
+{
+    if (card.rank < CardRank::JACK)
+        return ((int)card.rank) + 2;
+    else if (card.rank == CardRank::ACE) 
+        return 11;
+    else 
+        return 10;
+}
+
+void printTest6()
+{
+    Card c1{ CardSuit::DIAMONDS, CardRank::KING };
+    Card c2{ CardSuit::SPADES, CardRank::ACE };
+    Card c3{ CardSuit::SPADES, CardRank::FIVE };
+    swapCards(c1, c2);
+
+    cout << (int) c1.rank << " - " << (int) c2.rank << endl;
+
+    std::array<Card, 52> deck = initDeck();
+
+    printDeck(deck);
+    shuffleDeck(deck);
+    printDeck(deck);
+
+    cout << "Card value: " << getCardValue(c1) << endl;
+    cout << "Card value: " << getCardValue(c2) << endl;
+    cout << "Card value: " << getCardValue(c3) << endl;
+}
+
+bool wantsToDrawCard()
+{
+    char answer{};
+    int attempts = 1;
+
+    cout << "Do you want to take another card? y/n (n)";
+    while (attempts <= 5)
+    {
+        cin >> answer;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if (cin.fail() || (answer != 'y' && answer != 'n'))
+        {
+            cout << "Answer must be 'y' or 'n'! " << 5 - attempts << " attempts left. Default is n" << endl;
+            ++attempts;
+            continue;
+        }
+        
+        return answer == 'y';
+    }
+
+    return false;
+}
+
+void printCurrentCardsValue(const int value)
+{
+    cout << "Current cards value: " << value << endl;
+}
+
+/**
+ * card points to card deck array
+*/
+Card const * drawCard(Card const *&card)
+{
+    ++card;
+    cout << "You drew ";
+    printCard(*card);
+    cout << endl;
+
+    return card;
+}
+
+int startDrawingSequence(string playerName, Card const *&currCard)
+{
+    int playerResult{};
+
+    playerResult += getCardValue(*currCard);
+    playerResult += getCardValue(*drawCard(currCard));
+    printCurrentCardsValue(playerResult);
+
+    while (wantsToDrawCard())
+    {
+        playerResult += getCardValue(*drawCard(currCard));
+        
+        if (playerResult == 21)
+        {
+            cout << "Player " << playerName << " has 21! Congratulations!" << endl;
+            return 21;
+        }
+        else if (playerResult > 21)
+        {
+            cout << "Player " << playerName << " lost with result " << playerResult << " :(" << endl;
+            return 0;
+        }
+
+        printCurrentCardsValue(playerResult);
+    }
+
+    return playerResult;
+}
+
+bool playBlackJack(const std::array<Card, 52> &deck)
+{
+    int clientResult{};
+    int dealerResult{};
+
+    Card const *currCard = &deck[0];
+
+    cout << "Client's turn!" << endl;
+    clientResult = startDrawingSequence("Client", currCard);
+
+    cout << "Dealer's turn!" << endl;
+    ++currCard;
+    dealerResult = startDrawingSequence("Dealer", currCard);
+    
+    if (clientResult > dealerResult)
+    {
+        cout << "Client won!" << endl;
+    }
+    else if (clientResult < dealerResult)
+    {
+        cout << "Client lost." << endl;
+    }
+    else 
+    {
+        cout << "Tie." << endl;
+    }
+
+    return false;
+}
+
+void printTest7()
+{
+    srand(static_cast<unsigned int>(time(0)));
+    getRandomI(0, 51);
+    std::array<Card, 52> deck = initDeck();
+    
+    shuffleDeck(deck);
+    printDeck(deck);
+    playBlackJack(deck);
+}
+
+void printTests()
+{
+    // printTest1();
+    // printTest2();
+    // printTest3();
+    // printTest4();
+    // printTest6();
+    printTest7();
 }
 
 void printArrays()
@@ -642,6 +1063,9 @@ void printArrays()
     // printLesson94(); // accessing strut member using pointer
     // printLesson95(); // foreach
     // printLesson96(); // void pointers
-    // printLesson97();
-    printLesson98();
+    // printLesson97(); // pointers to pointers
+    // printLesson98(); // std::array
+    // printLesson99(); // std::vector
+    // printLesson101(); // algorithm
+    printTests();
 }
