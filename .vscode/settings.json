@@ -9,6 +9,7 @@
         "*.tcc": "cpp",
         "new": "cpp",
         "limits": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "cmath": "cpp"
     }
 }

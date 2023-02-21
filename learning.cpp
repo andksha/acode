@@ -11,10 +11,11 @@
 // #include "rozdil4.h"
 // #include "rozdil_3_4_5/rozdil5.h"
 // #include "rozdil6/rozdil6.h"
+#include "rozdil7/rozdil7.h"
 
 // extern int g_myglobe1;
 
-int main()
+int main(int argc, char *argv[])
 {
     /* rozdil 1-2 */
     // test_cpp17();
@@ -65,7 +66,7 @@ int main()
     // printArrays();
 
     /* rozdil 7 */
-    
+    printChapter7(argc, argv);
 
     return 0;
 }
